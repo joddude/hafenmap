@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Haven World Map</title>
+  </head>
+  <body>
+
+    <div id="map"></div>
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" type="text/javascript" defer></script>
+    <script src="js/jquery.min.js" type="text/javascript" defer></script>
+    <script src="js/bootstrap.min.js" type="text/javascript" defer></script>
+    <script src="js/coord.js" type="text/javascript" defer></script>
+    <script src="js/poi.js" type="text/javascript" defer></script>
+    <script src="js/ruler.js" type="text/javascript" defer></script>
+    <script src="js/main.js" type="text/javascript" defer></script>
+
+    <div id ="panel" class="img-rounded">
+      <button class="btn btn-default btn-sm" onclick="addruler();"><span class="glyphicon glyphicon-resize-full"></span> Add a ruler</button>
+      <button class="btn btn-default btn-sm" onclick="overlay.toggle();"><span class="glyphicon glyphicon-th"></span> Toggle Grid</button>
+      <button class="btn btn-default btn-sm" onclick="open_spreadsheet()"><span class="glyphicon glyphicon-list-alt"></span> Spreadsheet</button>
+      <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#infoModal"><span class="glyphicon glyphicon-info-sign"></span> Info</button>
+    </div>
+
+    <div id="infoModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Hafen map (world 9)</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              <b>Description</b><br/>
+              Web map for Haven & Hearth.<br/>
+              Using tileset from Odditown Haven World Map.<br/>
+              Markers loading from google spreadsheet.<br/>
+            </p>
+            <p>
+              <b>How to add marker?</b><br/>
+              Click on map and remember coordinates.<br/>
+              Click on Spreadsheet button in top-right corner and go to google spreadsheet.<br/>
+              Copy any row to end of table and edit it.<br/>
+            </p>
+            <p>
+              <b>For advanced users</b><br/>
+              You can copy spreadsheet, add your points of interest, share and specify your spreadsheet id in url.<br/>
+              e.g. &spreadsheet=14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0<br/>
+              You also can upload your tileset on any hosting and change tileset in url for load your land and caves layers.<br/>
+              e.g. &tileset=http://hafenmap-jodd.rhcloud.com/tiles/<br/>
+              Save modified url as bookmark for easy access.<br/>
+            </p>
+            <p>
+              <b>GitHub</b><br/>
+              <a href="https://github.com/joddude/hafenmap" target="blank">https://github.com/joddude/hafenmap</a>
+            </p>
+            <p>
+              <b>Haven & Hearth game portal</b><br/>
+              <a href="http://www.havenandhearth.com/portal/" target="blank">http://www.havenandhearth.com/portal/</a>
+            </p>
+            <p>
+              <b>Odditown Haven World Map</b><br/>
+              <a href="http://odditown.com/haven/map/" target="blank">http://odditown.com/haven/map/</a>
+            </p>
+            <p>
+              <b>Odditown Haven World Map forum thread</b><br/>
+              <a href="http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=46918" target="blank">http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=46918</a>
+            </p>
+            <p>
+              <b>Markers Icons</b><br/>
+              <a href="http://www.icons-land.com/" target="blank">http://www.icons-land.com/</a>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
