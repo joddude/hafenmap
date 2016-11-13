@@ -17,6 +17,8 @@ Paste your google api key in files index.html and js\main.js (replace YOUR_API_K
 ### Links
 [Hafenmap site](http://hafenmap-jodd.rhcloud.com/)
 
+[Hafenmap forum thread](http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=51908)
+
 [Haven & Hearth game portal](http://www.havenandhearth.com/portal/)
 
 [Odditown Haven World Map](http://odditown.com/haven/map/)
