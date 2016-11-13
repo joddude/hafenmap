@@ -1,4 +1,4 @@
-## hafenmap
+## Hafenmap
 
 Web map for Haven & Hearth.
 
@@ -9,9 +9,9 @@ Markers loading from google spreadsheet.
 
 ### Installation
 
-Unzip files to your web-server folder.
+Copy content of hafenmap folder to your web-server folder.
 
-Paste your google api key in files index.html and js\main.js (YOUR_API_KEY).
+Paste your google api key in files index.html and js\main.js (replace YOUR_API_KEY).
 
 
 ### Links
