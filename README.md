@@ -11,7 +11,11 @@ Markers loading from google spreadsheet.
 
 Copy content of hafenmap folder to your web-server folder.
 
+Create new project in Google API console. Add api key for spreadsheet reading and map. Add OAuth client id for spreadsheet editing.
+
 Paste your google api key in files index.html and js\main.js (replace YOUR_API_KEY).
+
+Paste your OAuth client id in file js\main.js (replace OAUTH_CLIENT_ID).
 
 
 ### Links
