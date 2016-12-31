@@ -2,13 +2,13 @@ var tsz = [100, 100]
 var gridActive = true;
 var COORDSPP = 5.12;
 
-var api_key = 'AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg';
+var api_key = 'YOUR_API_KEY';
 var default_spreadsheet_id = '14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0';
 var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
 var sheet_name = 'hafenmap_poi';
 var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id;
 var tileset =  gup('tileset','tiles/');
-var oauth_client_id = '899386149897-u1cbun7uijmk5bnh8q81d6t5t1rreaah.apps.googleusercontent.com';
+var oauth_client_id = 'YOUR_OAUTH_CLIENT_ID';
 var oauth_scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 var site_url = location.protocol + '/' + location.host + location.pathname;
 
