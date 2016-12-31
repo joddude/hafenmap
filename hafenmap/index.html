@@ -11,7 +11,8 @@
     <link href="css/main.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" type="text/javascript" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg" type="text/javascript" defer></script>
+    <script src="https://apis.google.com/js/client.js" defer></script>
     <script src="js/jquery.min.js" type="text/javascript" defer></script>
     <script src="js/bootstrap.min.js" type="text/javascript" defer></script>
     <script src="js/coord.js" type="text/javascript" defer></script>
@@ -20,13 +21,13 @@
     <script src="js/main.js" type="text/javascript" defer></script>
 
     <div id ="panel" class="img-rounded">
-      <button class="btn btn-default btn-sm" onclick="addruler();"><span class="glyphicon glyphicon-resize-full"></span> Add a ruler</button>
+      <button class="btn btn-default btn-sm" onclick="addruler();"><span class="glyphicon glyphicon-resize-full"></span> Add ruler</button>
       <button class="btn btn-default btn-sm" onclick="overlay.toggle();"><span class="glyphicon glyphicon-th"></span> Toggle Grid</button>
       <button class="btn btn-default btn-sm" onclick="open_spreadsheet()"><span class="glyphicon glyphicon-list-alt"></span> Spreadsheet</button>
       <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#infoModal"><span class="glyphicon glyphicon-info-sign"></span> Info</button>
     </div>
 
-    <div id="infoModal" class="modal fade" role="dialog">
+    <div id="infoModal" class="modal fade" role="dialog" style="display: none;">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -39,12 +40,6 @@
               Web map for Haven & Hearth.<br/>
               Using tileset from Odditown Haven World Map.<br/>
               Markers loading from google spreadsheet.<br/>
-            </p>
-            <p>
-              <b>How to add marker?</b><br/>
-              Click on map and remember coordinates.<br/>
-              Click on Spreadsheet button in top-right corner and go to google spreadsheet.<br/>
-              Copy any row to end of table and edit it.<br/>
             </p>
             <p>
               <b>For advanced users</b><br/>
@@ -80,7 +75,131 @@
             </p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="addModal" class="modal fade" role="dialog" style="display: none;">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add poi</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="add-form-type">Type:</label>
+              <select value="" id="add-form-type" class="form-control">
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-form-name">Name:</label>
+              <input type="text" value="" id="add-form-name" class="form-control">
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="add-form-essence">Essence:</label>
+                <input type="text" size="3" value="0" id="add-form-essence" class="form-control">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="add-form-substance">Substance:</label>
+                <input type="text" size="3" value="0" id="add-form-substance" class="form-control">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="add-form-vitality">Vitality:</label>
+                <input type="text" size="3" value="0"id="add-form-vitality"  class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="add-form-level">Level:</label>
+              <select value="land" id="add-form-level" class="form-control">
+                <option>land</option>
+                <option>cave1</option>
+                <option>cave2</option>
+                <option>cave3</option>
+                <option>cave4</option>
+                <option>cave5</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="add-form-x">X:</label>
+                <input type="text" value="0" id="add-form-x" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="add-form-y">Y:</label>
+                <input type="text" value="0" id="add-form-y" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default pull-left" onclick="add_poi();" data-dismiss="modal"><span class="glyphicon glyphicon-ok-sign"></span> Add</button>
+            <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="editModal" class="modal fade" role="dialog" style="display: none;">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit poi</h4>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" value="" id="edit-form-poi-id">
+            <div class="form-group">
+              <label for="edit-form-type">Type:</label>
+              <select value="" id="edit-form-type" class="form-control">
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-form-name">Name:</label>
+              <input type="text" value="" id="edit-form-name" class="form-control">
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="edit-form-essence">Essence:</label>
+                <input type="text" size="3" value="0" id="edit-form-essence" class="form-control">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="edit-form-substance">Substance:</label>
+                <input type="text" size="3" value="0" id="edit-form-substance" class="form-control">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="edit-form-vitality">Vitality:</label>
+                <input type="text" size="3" value="0"id="edit-form-vitality"  class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-form-level">Level:</label>
+              <select value="land" id="edit-form-level" class="form-control">
+                <option>land</option>
+                <option>cave1</option>
+                <option>cave2</option>
+                <option>cave3</option>
+                <option>cave4</option>
+                <option>cave5</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="edit-form-x">X:</label>
+                <input type="text" value="0" id="edit-form-x" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="edit-form-y">Y:</label>
+                <input type="text" value="0" id="edit-form-y" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default pull-left" onclick="edit_poi();" data-dismiss="modal"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button type="submit" class="btn btn-default pull-left" onclick="remove_poi();" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> Remove</button>
+            <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         </div>
       </div>

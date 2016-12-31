@@ -2,12 +2,15 @@ var tsz = [100, 100]
 var gridActive = true;
 var COORDSPP = 5.12;
 
-var api_key = 'YOUR_API_KEY';
-var spreadsheet = gup('spreadsheet','14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0');
+var api_key = 'AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg';
+var default_spreadsheet_id = '14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0';
+var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
 var sheet_name = 'hafenmap_poi';
-var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet + '/values/' + sheet_name;
+var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id;
 var tileset =  gup('tileset','tiles/');
-
+var oauth_client_id = '899386149897-u1cbun7uijmk5bnh8q81d6t5t1rreaah.apps.googleusercontent.com';
+var oauth_scopes = ['https://www.googleapis.com/auth/spreadsheets'];
+var site_url = location.protocol + '/' + location.host + location.pathname;
 
 var projection;
 myProjection.prototype.fromPointToCoord = function(point) {return new Coord(COORDSPP*point.x, COORDSPP*point.y)};
@@ -31,14 +34,14 @@ myProjection.prototype.fromPointToLatLng = function(point) {
 
 function myProjection() {
   var MAP_RANGE = 51200;
-  this.worldOrigin_ = this.fromCoordToPoint(new Coord(gup("x","0"),gup("y","0")));
+  this.worldOrigin_ = this.fromCoordToPoint(new Coord(gup('x','0'),gup('y','0')));
   this.pixelsPerLonDegree_ = MAP_RANGE / 360;
   this.pixelsPerLatDegree_ = MAP_RANGE / 180;
 };
 
 function gup(name,dflt) {
-  name = name.replace(/[[]/,"\\\[").replace(/[]]/,"\\\]");
-  var regexS = "[?#&]"+name+"=([^&#]*)";
+  name = name.replace(/[[]/,'\\\[').replace(/[]]/,'\\\]');
+  var regexS = '[?#&]'+name+'=([^&#]*)';
   var regex = new RegExp( regexS );
   var results = regex.exec( window.location.href );
   if( results == null )
@@ -56,14 +59,14 @@ CoordMapType.prototype.getTile = function(coord, zoom, ownerDocument) {
   var x = ((coord.x)*factor);
   var y = ((coord.y)*factor);
   var div = ownerDocument.createElement('div');
-  div.innerHTML = "("+x+","+y+")";
+  div.innerHTML = '('+x+','+y+')';
   div.style.width = this.tileSize.width + 'px';
   div.style.height = this.tileSize.height + 'px';
   div.style.fontSize = '10';
   div.style.borderStyle = 'solid';
   div.style.borderWidth = '1px';
   div.style.borderColor = '#000000';
-  div.className = "gridTile";
+  div.className = 'gridTile';
   return div;
 };
 
@@ -79,7 +82,7 @@ var overlay = new CoordMapType(new google.maps.Size(tsz[0], tsz[1]));
 
 var map = new google.maps.Map(document.getElementById('map'), {
   center: {lat: 0, lng: 0},
-  zoom: parseInt(gup("zoom","4")),
+  zoom: parseInt(gup('zoom','4')),
   streetViewControl: false,
   mapTypeControlOptions: {
     mapTypeIds: ['land', 'land2', 'cave1', 'cave2', 'cave3', 'cave4', 'cave5']
@@ -191,7 +194,7 @@ google.maps.event.addListener(map, 'bounds_changed', function() {
   url_update();
 });
 
-google.maps.event.addListener(map, "maptypeid_changed", function(event) {
+google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
   url_update();
 });
 
@@ -201,12 +204,12 @@ function url_update(){
     '&x='+coord.x.toFixed(2)+
     '&y='+coord.y.toFixed(2)+
     '&zoom='+map.zoom+
-    '&spreadsheet='+spreadsheet+
+    '&spreadsheet='+spreadsheet_id+
     '&tileset='+tileset;
 }
 
 function open_spreadsheet(){
-  window.open('https://docs.google.com/spreadsheets/d/'+spreadsheet+'/edit', '_blank');
+  window.open('https://docs.google.com/spreadsheets/d/'+spreadsheet_id+'/edit', '_blank');
 }
 
 

@@ -1,4 +1,5 @@
 var icon_size = 24;
+var access_token = false;
 var poi = [];
 var markers = [];
 
@@ -75,15 +76,27 @@ var marker_icon = {
   'Wooden Roadsign': 'Wooden_Roadsign'
 }
 
-
 function start_poi() {
-  $.get(sheet_api_url+'?key='+api_key, function(data) {
-    poi = convertToArrayOfObjects(data['values']);
-    draw_markers();
-	});
+  $('#add-form-type').html(type_select());
+  $('#edit-form-type').html(type_select());
+  load_poi();
   poi_listeners();
 }
 
+function type_select() {
+	var list = '<option></option>';
+	for (i in marker_icon) {
+		list = list + '<option>' + i + '</option>'
+	}
+	return list;
+}
+
+function load_poi() {
+  $.get(sheet_api_url+'/values/'+ sheet_name+'?key='+api_key, function(data) {
+    poi = convertToArrayOfObjects(data['values']);
+    draw_markers();
+	});
+}
 
 function draw_markers() {
   var marker, i;
@@ -93,36 +106,34 @@ function draw_markers() {
     var marker = new google.maps.Marker({
       position: projection.fromCoordToLatLng({x: poi[i].X, y: poi[i].Y}),
       icon: get_marker_icon(poi[i].Type),
-      title: marker_title(poi[i]),
+      title: marker_title(i),
       map: map
     });
     markers.push(marker);
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
       return function() {
-        infowindow.setContent(marker_info(poi[i]));
+        infowindow.setContent(marker_info(i));
         infowindow.open(map, marker);
       }
     })(marker, i));
   }
 }
 
-
 function poi_listeners() {
-  google.maps.event.addListener(map, "click", function(event) {
+  google.maps.event.addListener(map, 'click', function(event) {
     point_info(event);
   });
-  google.maps.event.addListener(map, "maptypeid_changed", function(event) {
-    reload_markers(event);
+  google.maps.event.addListener(map, 'maptypeid_changed', function(event) {
+    remove_markers();
+    draw_markers();
   });
 }
-
 
 function level_id() {
   var level = map.getMapTypeId();
   if (level == 'land2') level = 'land';
   return level;
 }
-
 
 function convertToArrayOfObjects(data) {
   var keys = data.shift(),
@@ -138,7 +149,6 @@ function convertToArrayOfObjects(data) {
   }
   return output;
 }
-
 
 function get_marker_icon(marker_type) {
   if (marker_icon[marker_type]) {
@@ -156,43 +166,36 @@ function get_marker_icon(marker_type) {
   }
 }
 
-
 function remove_markers(){
   for(i=0; i<markers.length; i++){
     markers[i].setMap(null);
   }
 }
 
-
-function reload_markers() {
-  remove_markers();
-  draw_markers();
-}
-
-
-function marker_title(poi) {
- var info = poi.Type + ' ' + poi.Name;
-  if (poi.AvgQuality != '0') {
-    info = info + ' (q' + poi.AvgQuality + ')';
+function marker_title(i) {
+ var info = poi[i].Type + ' ' + poi[i].Name;
+  if (poi[i].AvgQuality != '0') {
+    info = info + ' (q' + poi[i].AvgQuality + ')';
   }
   return info;
 }
 
-
-function marker_info(poi) {
+function marker_info(i) {
   var info = (
-    poi.Type + ' ' + poi.Name + '<br/>' +
-    'AvgQuality: ' + poi.AvgQuality + '<br/>' +
-    'Essence: ' + poi.Essence + '<br/>' +
-    'Substance: ' + poi.Substance + '<br/>' +
-    'Vitality: ' + poi.Vitality + '<br/>' +
-    'Level: ' + poi.Level + '<br/>' +
-    'X: ' + poi.X + '<br/>' +
-    'Y: ' + poi.Y
+    '<p>' +
+    poi[i].Type + ' ' + poi[i].Name + '<br/>' +
+    'AvgQuality: ' + poi[i].AvgQuality + '<br/>' +
+    'Essence: ' + poi[i].Essence + '<br/>' +
+    'Substance: ' + poi[i].Substance + '<br/>' +
+    'Vitality: ' + poi[i].Vitality + '<br/>' +
+    'Level: ' + poi[i].Level + '<br/>' +
+    'X: ' + poi[i].X + '<br/>' +
+    'Y: ' + poi[i].Y + '<br/>' +
+    '</p>' +
+    '<button class="btn btn-default btn-sm" data-toggle="modal" onclick="edit_poi_dialog('+i+')"><span class="glyphicon glyphicon-map-marker"></span> Edit</button>'
   );
   return info;
 }
-
 
 function point_info(event) {
   var coord = projection.fromLatLngToCoord(event.latLng);
@@ -201,11 +204,169 @@ function point_info(event) {
   var X = coord.x.toFixed(2);
   var Y = coord.y.toFixed(2);
   infowindow_coord.setContent(
+    '<p>' +
     'Level: ' + Level + '<br/>' +
     'X: ' + X + '<br/>' +
-    'Y: ' + Y
+    'Y: ' + Y + '<br/>' +
+    '</p>' +
+    '<button class="btn btn-default btn-sm" data-toggle="modal" onclick="add_poi_dialog('+X+','+Y+')"><span class="glyphicon glyphicon-map-marker"></span> Add</button>'
   );
   infowindow_coord.setPosition(event.latLng);
   infowindow_coord.open(map);
 }
 
+function add_poi_dialog(X=0, Y=0) {
+  check_auth();
+  level=level_id();
+  $('#add-form-level').val(level);
+  $('#add-form-x').val(X);
+  $('#add-form-y').val(Y);
+  $('#addModal').modal();
+}
+
+function edit_poi_dialog(i) {
+  check_auth();
+  $('#edit-form-poi-id').val(i);
+  $('#edit-form-type').val(poi[i].Type);
+  $('#edit-form-name').val(poi[i].Name);
+  $('#edit-form-essence').val(poi[i].Essence);
+  $('#edit-form-substance').val(poi[i].Substance);
+  $('#edit-form-vitality').val(poi[i].Vitality);
+  $('#edit-form-level').val(poi[i].Level);
+  $('#edit-form-x').val(poi[i].X);
+  $('#edit-form-y').val(poi[i].Y);
+  $('#editModal').modal();
+}
+
+function add_poi() {
+  $('#addModal').modal();
+  var Type = $('#add-form-type').val();
+  var Name = $('#add-form-name').val();
+  var Level = $('#add-form-level').val();
+  var X = $('#add-form-x').val();
+  var Y = $('#add-form-y').val();
+  var Essence = $('#add-form-essence').val();
+  var Substance = $('#add-form-substance').val();
+  var Vitality = $('#add-form-vitality').val();
+  var AvgQuality = Math.round(Math.sqrt((Math.pow(Essence,2)+Math.pow(Substance,2)+Math.pow(Vitality,2))/3));
+  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  var data = {
+    'values': [
+        [Type, Name, Level, X, Y, Essence, Substance, Vitality, AvgQuality, MapLink],
+    ],
+  }
+  $.ajax({
+    url: sheet_api_url+'/values/'+sheet_name+':append?valueInputOption=USER_ENTERED&access_token='+access_token,
+    type: 'POST',
+    data: JSON.stringify(data),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      remove_markers();
+      load_poi();
+    },
+    error: function(data){
+      console.log(data);
+      alert('Error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
+    }
+  })
+}
+
+function edit_poi() {
+  $('#editModal').modal();
+  var i = $('#edit-form-poi-id').val();
+  var row = parseInt(i)+2;
+  var Type = $('#edit-form-type').val();
+  var Name = $('#edit-form-name').val();
+  var Level = $('#edit-form-level').val();
+  var X = $('#edit-form-x').val();
+  var Y = $('#edit-form-y').val();
+  var Essence = $('#edit-form-essence').val();
+  var Substance = $('#edit-form-substance').val();
+  var Vitality = $('#edit-form-vitality').val();
+  var AvgQuality = Math.round(Math.sqrt((Math.pow(Essence,2)+Math.pow(Substance,2)+Math.pow(Vitality,2))/3));
+  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  var data = {
+    'values': [
+        [Type, Name, Level, X, Y, Essence, Substance, Vitality, AvgQuality, MapLink],
+    ],
+  }
+  $.ajax({
+    url: sheet_api_url+'/values/'+sheet_name+'!'+row+':'+row+'?valueInputOption=USER_ENTERED&access_token='+access_token,
+    type: 'PUT',
+    data: JSON.stringify(data),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      remove_markers();
+      load_poi();
+    },
+    error: function(data){
+      console.log(data);
+      alert('Error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
+    }
+  })
+}
+
+function remove_poi() {
+  $('#editModal').modal();
+  var i = $('#edit-form-poi-id').val();
+  var row = parseInt(i)+2;
+  var data = {
+    'requests': [
+      {
+        'deleteDimension': {
+          'range': {
+            'sheetId': 0,
+            'dimension': 'ROWS',
+            'startIndex': row-1,
+            'endIndex': row
+          }
+        }
+      }
+    ]
+  }
+  $.ajax({
+    url: sheet_api_url+':batchUpdate?access_token='+access_token,
+    type: 'POST',
+    data: JSON.stringify(data),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      remove_markers();
+      load_poi();
+    },
+    error: function(data){
+      console.log(data);
+      alert('Error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
+    }
+  })
+}
+
+function check_auth() {
+  gapi.auth.authorize(
+    {
+      'client_id': oauth_client_id,
+      'scope': oauth_scopes.join(' '),
+      'immediate': true
+    }, auth_result);
+}
+
+function auth_result(authResult) {
+    console.log(authResult);
+  if (authResult.access_token) {
+    access_token = authResult.access_token;
+    console.log(access_token);
+  } else {
+    start_auth();
+  }
+}
+
+function start_auth() {
+  gapi.auth.authorize(
+    {
+      'client_id': oauth_client_id,
+      'scope': oauth_scopes,
+      'immediate': false
+    }, auth_result);
+}
