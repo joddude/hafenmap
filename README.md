@@ -12,7 +12,7 @@ Markers loading from google spreadsheet.
 3. Add api key for spreadsheet reading and map.
 4. Add OAuth client id for spreadsheet editing.
 5. Paste your google api key in files index.html and js\main.js (replace YOUR_API_KEY).
-6. Paste your OAuth client id in file js\main.js (replace OAUTH_CLIENT_ID).
+6. Paste your OAuth client id in file js\main.js (replace YOUR_OAUTH_CLIENT_ID).
 
 ## Links
 * [Hafenmap site](http://hafenmap-jodd.rhcloud.com/)

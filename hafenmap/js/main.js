@@ -3,13 +3,14 @@ var gridActive = true;
 var COORDSPP = 5.12;
 
 var api_key = 'YOUR_API_KEY';
-var default_spreadsheet_id = '14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0';
-var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
-var sheet_name = 'hafenmap_poi';
-var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id;
-var tileset =  gup('tileset','tiles/');
 var oauth_client_id = 'YOUR_OAUTH_CLIENT_ID';
 var oauth_scopes = ['https://www.googleapis.com/auth/spreadsheets'];
+var default_tileset = 'tiles/';
+var default_spreadsheet_id = '14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0';
+var sheet_name = 'hafenmap_poi';
+var tileset = gup('tileset',default_tileset);
+var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
+var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id;
 var site_url = location.protocol + '/' + location.host + location.pathname;
 
 var projection;
