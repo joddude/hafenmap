@@ -174,8 +174,8 @@ function remove_markers(){
 
 function marker_title(i) {
  var info = poi[i].Type + ' ' + poi[i].Name;
-  if (poi[i].AvgQuality != '0') {
-    info = info + ' (q' + poi[i].AvgQuality + ')';
+  if (poi[i].Quality != '0') {
+    info = info + ' (q' + poi[i].Quality + ')';
   }
   return info;
 }
@@ -184,10 +184,7 @@ function marker_info(i) {
   var info = (
     '<p>' +
     poi[i].Type + ' ' + poi[i].Name + '<br/>' +
-    'AvgQuality: ' + poi[i].AvgQuality + '<br/>' +
-    'Essence: ' + poi[i].Essence + '<br/>' +
-    'Substance: ' + poi[i].Substance + '<br/>' +
-    'Vitality: ' + poi[i].Vitality + '<br/>' +
+    'Quality: ' + poi[i].Quality + '<br/>' +
     'Level: ' + poi[i].Level + '<br/>' +
     'X: ' + poi[i].X + '<br/>' +
     'Y: ' + poi[i].Y + '<br/>' +
@@ -229,9 +226,7 @@ function edit_poi_dialog(i) {
   $('#edit-form-poi-id').val(i);
   $('#edit-form-type').val(poi[i].Type);
   $('#edit-form-name').val(poi[i].Name);
-  $('#edit-form-essence').val(poi[i].Essence);
-  $('#edit-form-substance').val(poi[i].Substance);
-  $('#edit-form-vitality').val(poi[i].Vitality);
+  $('#edit-form-quality').val(poi[i].Quality);
   $('#edit-form-level').val(poi[i].Level);
   $('#edit-form-x').val(poi[i].X);
   $('#edit-form-y').val(poi[i].Y);
@@ -245,14 +240,11 @@ function add_poi() {
   var Level = $('#add-form-level').val();
   var X = $('#add-form-x').val();
   var Y = $('#add-form-y').val();
-  var Essence = $('#add-form-essence').val();
-  var Substance = $('#add-form-substance').val();
-  var Vitality = $('#add-form-vitality').val();
-  var AvgQuality = Math.round(Math.sqrt((Math.pow(Essence,2)+Math.pow(Substance,2)+Math.pow(Vitality,2))/3));
+  var Quality = $('#add-form-quality').val();
   var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
   var data = {
     'values': [
-        [Type, Name, Level, X, Y, Essence, Substance, Vitality, AvgQuality, MapLink],
+        [Type, Name, Level, X, Y, Quality, MapLink],
     ],
   }
   $.ajax({
@@ -281,14 +273,11 @@ function edit_poi() {
   var Level = $('#edit-form-level').val();
   var X = $('#edit-form-x').val();
   var Y = $('#edit-form-y').val();
-  var Essence = $('#edit-form-essence').val();
-  var Substance = $('#edit-form-substance').val();
-  var Vitality = $('#edit-form-vitality').val();
-  var AvgQuality = Math.round(Math.sqrt((Math.pow(Essence,2)+Math.pow(Substance,2)+Math.pow(Vitality,2))/3));
+  var Quality = $('#edit-form-quality').val();
   var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
   var data = {
     'values': [
-        [Type, Name, Level, X, Y, Essence, Substance, Vitality, AvgQuality, MapLink],
+        [Type, Name, Level, X, Y, Quality, MapLink],
     ],
   }
   $.ajax({

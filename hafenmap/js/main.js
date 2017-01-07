@@ -6,7 +6,7 @@ var api_key = 'YOUR_API_KEY';
 var oauth_client_id = 'YOUR_OAUTH_CLIENT_ID';
 var oauth_scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 var default_tileset = 'tiles/';
-var default_spreadsheet_id = '14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0';
+var default_spreadsheet_id = '1vQxLvqzQ8Z_N2ifbAni7Fu5NLEuT5tNR05Z_8bPQqHw';
 var sheet_name = 'hafenmap_poi';
 var tileset = gup('tileset',default_tileset);
 var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
@@ -86,20 +86,8 @@ var map = new google.maps.Map(document.getElementById('map'), {
   zoom: parseInt(gup('zoom','4')),
   streetViewControl: false,
   mapTypeControlOptions: {
-    mapTypeIds: ['land', 'land2', 'cave1', 'cave2', 'cave3', 'cave4', 'cave5']
+    mapTypeIds: ['land', 'cave1', 'cave2', 'cave3', 'cave4', 'cave5']
   }
-});
-
-var oddiMapType = new google.maps.ImageMapType({
-  getTileUrl: function(coord, zoom) {
-      var x = coord.x;
-      var y = coord.y;
-      return 'http://www.odditown.com:8080/haven/tiles/live/'+zoom+'/'+x+'_'+y+'.png';
-  },
-  tileSize: new google.maps.Size(tsz[0], tsz[1]),
-  minZoom: 3,
-  maxZoom: 9,
-  name: 'Odditown Land'
 });
 
 var LandMap = new google.maps.ImageMapType({
@@ -172,7 +160,6 @@ var Cave5Map = new google.maps.ImageMapType({
 });
 
 projection = new myProjection();
-oddiMapType.projection = projection
 LandMap.projection = projection
 Cave1Map.projection = projection
 Cave2Map.projection = projection
@@ -180,8 +167,7 @@ Cave3Map.projection = projection
 Cave4Map.projection = projection
 Cave5Map.projection = projection
 
-map.mapTypes.set('land', oddiMapType);
-map.mapTypes.set('land2', LandMap);
+map.mapTypes.set('land', LandMap);
 map.mapTypes.set('cave1', Cave1Map);
 map.mapTypes.set('cave2', Cave2Map);
 map.mapTypes.set('cave3', Cave3Map);
