@@ -89,8 +89,20 @@ var map = new google.maps.Map(document.getElementById('map'), {
   zoom: parseInt(gup('zoom','4')),
   streetViewControl: false,
   mapTypeControlOptions: {
-    mapTypeIds: ['land', 'cave1', 'cave2', 'cave3', 'cave4', 'cave5']
+    mapTypeIds: ['public_map', 'land', 'cave1', 'cave2', 'cave3', 'cave4', 'cave5']
   }
+});
+
+var PublicMap = new google.maps.ImageMapType({
+  getTileUrl: function(coord, zoom) {
+      var x = coord.x;
+      var y = coord.y;
+      return 'http://www.odditown.com:8080/haven/tiles-world10/live/'+zoom+'/'+x+'_'+y+'.png';
+  },
+  tileSize: new google.maps.Size(tsz[0], tsz[1]),
+  minZoom: 3,
+  maxZoom: 9,
+  name: 'Odditown map'
 });
 
 var LandMap = new google.maps.ImageMapType({
@@ -163,6 +175,7 @@ var Cave5Map = new google.maps.ImageMapType({
 });
 
 projection = new myProjection();
+PublicMap.projection = projection
 LandMap.projection = projection
 Cave1Map.projection = projection
 Cave2Map.projection = projection
@@ -170,6 +183,7 @@ Cave3Map.projection = projection
 Cave4Map.projection = projection
 Cave5Map.projection = projection
 
+map.mapTypes.set('public_map', PublicMap);
 map.mapTypes.set('land', LandMap);
 map.mapTypes.set('cave1', Cave1Map);
 map.mapTypes.set('cave2', Cave2Map);
@@ -177,7 +191,7 @@ map.mapTypes.set('cave3', Cave3Map);
 map.mapTypes.set('cave4', Cave4Map);
 map.mapTypes.set('cave5', Cave5Map);
 
-map.setMapTypeId(gup('level','land'));
+map.setMapTypeId(gup('level','public_map'));
 map.overlayMapTypes.insertAt(0, overlay);
 
 google.maps.event.addListener(map, 'bounds_changed', function() {

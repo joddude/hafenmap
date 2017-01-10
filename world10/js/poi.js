@@ -135,7 +135,7 @@ function poi_listeners() {
 
 function level_id() {
   var level = map.getMapTypeId();
-  if (level == 'land2') level = 'land';
+  if (level == 'public_map') level = 'land';
   return level;
 }
 
