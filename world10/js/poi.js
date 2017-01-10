@@ -61,7 +61,7 @@ var marker_icon = {
   'Mussels': 'Mussels',
   'Porphyry': 'Porphyry',
   'Quartz': 'Quartz',
-  'Quest Givers': 'Quest_Givers',
+  'Quest Giver': 'Quest_Giver',
   'Reddeer': 'Reddeer',
   'Rock Crystal': 'Rock_Crystal',
   'Salt Basin': 'Salt_Basin',
