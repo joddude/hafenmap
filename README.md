@@ -20,5 +20,7 @@ Using tileset from Odditown Haven World Map for world 9 map.
 ## Links
 * [Haven & Hearth game portal](http://www.havenandhearth.com/portal/)
 * [Hafenmap forum thread](http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=51908)
-* [Odditown Haven World Map](http://odditown.com/haven/map/)
+* [Odditown Haven World 9 Map](http://odditown.com/haven/map/)
 * [Odditown Haven World Map forum thread](http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=46918)
+* [Apxeolog World 8 map](http://map.apxeolog.com/)
+
