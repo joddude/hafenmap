@@ -2,8 +2,8 @@ var tsz = [100, 100]
 var gridActive = true;
 var COORDSPP = 5.12;
 
-var api_key = 'YOUR_API_KEY';
-var oauth_client_id = 'YOUR_OAUTH_CLIENT_ID';
+var api_key = 'AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg';
+var oauth_client_id = '899386149897-u1cbun7uijmk5bnh8q81d6t5t1rreaah.apps.googleusercontent.com';
 var oauth_scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 var default_tileset = 'tiles/';
 var default_spreadsheet_id = '1vQxLvqzQ8Z_N2ifbAni7Fu5NLEuT5tNR05Z_8bPQqHw';

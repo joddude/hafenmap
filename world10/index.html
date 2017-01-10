@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Hafenmap</title>
+  </head>
+  <body>
+
+    <div id="map"></div>
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg" type="text/javascript" defer></script>
+    <script src="https://apis.google.com/js/client.js" defer></script>
+    <script src="js/jquery.min.js" type="text/javascript" defer></script>
+    <script src="js/bootstrap.min.js" type="text/javascript" defer></script>
+    <script src="js/coord.js" type="text/javascript" defer></script>
+    <script src="js/poi.js" type="text/javascript" defer></script>
+    <script src="js/ruler.js" type="text/javascript" defer></script>
+    <script src="js/main.js" type="text/javascript" defer></script>
+
+    <div id ="panel" class="img-rounded">
+      <button class="btn btn-default btn-sm" onclick="addruler();"><span class="glyphicon glyphicon-resize-full"></span> Add ruler</button>
+      <button class="btn btn-default btn-sm" onclick="overlay.toggle();"><span class="glyphicon glyphicon-th"></span> Toggle Grid</button>
+      <button class="btn btn-default btn-sm" onclick="open_spreadsheet()"><span class="glyphicon glyphicon-list-alt"></span> Spreadsheet</button>
+      <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#infoModal"><span class="glyphicon glyphicon-info-sign"></span> Info</button>
+    </div>
+
+    <div id="infoModal" class="modal fade" role="dialog" style="display: none;">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Hafenmap (world 10)</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              <b>Description</b><br/>
+              Web map for Haven & Hearth.<br/>
+              Markers loading from google spreadsheet.<br/>
+            </p>
+            <p>
+              <b>For advanced users</b><br/>
+              You can copy spreadsheet, add your points of interest, share for everyone with link and specify your spreadsheet id in url.<br/>
+              e.g. &spreadsheet=14-zDmLOtP9K4G6t4DdbE0WibPVPG27WLdfkDYaLqhB0<br/>
+              You also can upload your tileset on any hosting and change tileset in url for load your land and caves layers.<br/>
+              e.g. &tileset=http://hafenmap-jodd.rhcloud.com/tiles/<br/>
+              Save modified url as bookmark for easy access.<br/>
+            </p>
+            <p>
+              <b>GitHub</b><br/>
+              <a href="https://github.com/joddude/hafenmap" target="blank">https://github.com/joddude/hafenmap</a>
+            </p>
+            <p>
+              <b>Hafenmap forum thread</b><br/>
+              <a href="http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=51908" target="blank">http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=51908</a>
+            </p>
+            <p>
+              <b>Haven & Hearth game portal</b><br/>
+              <a href="http://www.havenandhearth.com/portal/" target="blank">http://www.havenandhearth.com/portal/</a>
+            </p>
+            <p>
+              <b>Markers Icons</b><br/>
+              <a href="http://www.icons-land.com/" target="blank">http://www.icons-land.com/</a>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="addModal" class="modal fade" role="dialog" style="display: none;">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add poi</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="add-form-type">Type:</label>
+              <select value="" id="add-form-type" class="form-control">
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-form-name">Name:</label>
+              <input type="text" value="" id="add-form-name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="add-form-quality">Quality:</label>
+              <input type="text" value="0" id="add-form-quality" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="add-form-level">Level:</label>
+              <select value="land" id="add-form-level" class="form-control">
+                <option>land</option>
+                <option>cave1</option>
+                <option>cave2</option>
+                <option>cave3</option>
+                <option>cave4</option>
+                <option>cave5</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="add-form-x">X:</label>
+                <input type="text" value="0" id="add-form-x" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="add-form-y">Y:</label>
+                <input type="text" value="0" id="add-form-y" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default pull-left" onclick="add_poi();" data-dismiss="modal"><span class="glyphicon glyphicon-ok-sign"></span> Add</button>
+            <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="editModal" class="modal fade" role="dialog" style="display: none;">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit poi</h4>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" value="" id="edit-form-poi-id">
+            <div class="form-group">
+              <label for="edit-form-type">Type:</label>
+              <select value="" id="edit-form-type" class="form-control">
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-form-name">Name:</label>
+              <input type="text" value="" id="edit-form-name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="edit-form-quality">Quality:</label>
+              <input type="text" value="0" id="edit-form-quality" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="edit-form-level">Level:</label>
+              <select value="land" id="edit-form-level" class="form-control">
+                <option>land</option>
+                <option>cave1</option>
+                <option>cave2</option>
+                <option>cave3</option>
+                <option>cave4</option>
+                <option>cave5</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="edit-form-x">X:</label>
+                <input type="text" value="0" id="edit-form-x" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="edit-form-y">Y:</label>
+                <input type="text" value="0" id="edit-form-y" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default pull-left" onclick="edit_poi();" data-dismiss="modal"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button type="submit" class="btn btn-default pull-left" onclick="remove_poi();" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> Remove</button>
+            <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
