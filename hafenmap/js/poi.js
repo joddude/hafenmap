@@ -17,6 +17,7 @@ var marker_icon = {
   'Bloodstone': 'Bloodstone',
   'Boar': 'Boar',
   'Border Cairn': 'Border_Cairn',
+  'Burrow': 'Burrow',
   'Cassiterite': 'Cassiterite',
   'Cave': 'Cave',
   'Cave Organ': 'Cave_Organ',
@@ -40,7 +41,7 @@ var marker_icon = {
   'Granite': 'Granite',
   'Guano Pile': 'Guano_Pile',
   'Headwaters': 'Headwaters',
-  'Heart of the Woods': 'Heart_of_the_Woods',
+  'Heartwood Tree': 'Heartwood_Tree',
   'Heavy Earth': 'Heavy_Earth',
   'Hedgehog': 'Hedgehog',
   'Horn Silver': 'Horn_Silver',
@@ -60,6 +61,7 @@ var marker_icon = {
   'Mussels': 'Mussels',
   'Porphyry': 'Porphyry',
   'Quartz': 'Quartz',
+  'Quest Givers': 'Quest_Givers',
   'Reddeer': 'Reddeer',
   'Rock Crystal': 'Rock_Crystal',
   'Salt Basin': 'Salt_Basin',
@@ -69,7 +71,9 @@ var marker_icon = {
   'Schrifterz': 'Schrifterz',
   'Silvershine': 'Silvershine',
   'Soil': 'Soil',
+  'Stone Pillar': 'Stone_Pillar',
   'Sublime Portico': 'Sublime_Portico',
+  'Swirling Vortex': 'Swirling_Vortex',
   'Troll': 'Troll',
   'Village': 'Village',
   'Water': 'Water',
@@ -183,7 +187,8 @@ function marker_title(i) {
 function marker_info(i) {
   var info = (
     '<p>' +
-    poi[i].Type + ' ' + poi[i].Name + '<br/>' +
+    'Type: ' + poi[i].Type + '<br/>' +
+    'Name: ' + poi[i].Name + '<br/>' +
     'Quality: ' + poi[i].Quality + '<br/>' +
     'Level: ' + poi[i].Level + '<br/>' +
     'X: ' + poi[i].X + '<br/>' +
@@ -241,14 +246,14 @@ function add_poi() {
   var X = $('#add-form-x').val();
   var Y = $('#add-form-y').val();
   var Quality = $('#add-form-quality').val();
-  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  var MapLink = site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset;
   var data = {
     'values': [
         [Type, Name, Level, X, Y, Quality, MapLink],
     ],
   }
   $.ajax({
-    url: sheet_api_url+'/values/'+sheet_name+':append?valueInputOption=USER_ENTERED&access_token='+access_token,
+    url: sheet_api_url+'/values/'+sheet_name+':append?valueInputOption=RAW&access_token='+access_token,
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
@@ -274,14 +279,14 @@ function edit_poi() {
   var X = $('#edit-form-x').val();
   var Y = $('#edit-form-y').val();
   var Quality = $('#edit-form-quality').val();
-  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  var MapLink = site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset;
   var data = {
     'values': [
         [Type, Name, Level, X, Y, Quality, MapLink],
     ],
   }
   $.ajax({
-    url: sheet_api_url+'/values/'+sheet_name+'!'+row+':'+row+'?valueInputOption=USER_ENTERED&access_token='+access_token,
+    url: sheet_api_url+'/values/'+sheet_name+'!'+row+':'+row+'?valueInputOption=RAW&access_token='+access_token,
     type: 'PUT',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
