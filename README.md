@@ -6,8 +6,8 @@ Markers loading from google spreadsheet.
 
 Using tileset from Odditown Haven World Map for world 9.
 
-* [World 9 map](/world9/)
-* [World 10 map](/world10/)
+* [World 9 map](world9/)
+* [World 10 map](world10/)
 
 ## Installation
 1. Copy content of hafenmap folder to your web-server folder.
