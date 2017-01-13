@@ -76,6 +76,7 @@ var marker_icon = {
   'Swirling Vortex': 'Swirling_Vortex',
   'Troll': 'Troll',
   'Village': 'Village',
+  'Walrus': 'Walrus',
   'Water': 'Water',
   'Wooden Roadsign': 'Wooden_Roadsign'
 }
