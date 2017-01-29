@@ -4,7 +4,7 @@ Web map for Haven & Hearth.
 
 Markers loading from google spreadsheet.
 
-Using tileset from Odditown Haven World Map for world 9 map.
+Using tileset from Odditown Haven World Map.
 
 * [World 9 map](https://joddude.github.io/hafenmap/world9/)
 * [World 10 map](https://joddude.github.io/hafenmap/world10/)
