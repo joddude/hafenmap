@@ -103,3 +103,9 @@ textarea {
     left:100%;
     margin-left: -320px;
 }
+
+.type-icon{
+    padding-left: 20px;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+}

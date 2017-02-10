@@ -95,7 +95,7 @@ function start_poi() {
 function type_select() {
 	var list = '<option></option>';
 	for (i in marker_icon) {
-		list = list + '<option>' + i + '</option>'
+		list = list + '<option class="type-icon" style="background-image:url(markers/' + marker_icon[i] + '.png);">' + i + '</option>'
 	}
 	return list;
 }
