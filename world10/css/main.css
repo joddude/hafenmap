@@ -105,7 +105,10 @@ textarea {
 }
 
 .type-icon{
-    padding-left: 20px;
-    background-size: 16px 16px;
+    font-size: 14px;
+    height: 28px;
+    padding: 5px 34px;
+    background-size: 24px 24px;
+    background-position: 4px 50%;
     background-repeat: no-repeat;
 }
