@@ -28,6 +28,7 @@ var marker_icon = {
   'Clay': 'Clay',
   'Clay Pit': 'Clay_Pit',
   'Coronation Stone': 'Coronation_Stone',
+  'Crab': 'Crab',
   'Direvein': 'Direvein',
   'Dolomite': 'Dolomite',
   'Dragonfly': 'Dragonfly',
@@ -45,6 +46,7 @@ var marker_icon = {
   'Heavy Earth': 'Heavy_Earth',
   'Hedgehog': 'Hedgehog',
   'Horn Silver': 'Horn_Silver',
+  'Hornblende': 'Hornblende',
   'Horse': 'Horse',
   'Ice Spire': 'Ice_Spire',
   'Iron Ochre': 'Iron_Ochre',
@@ -73,11 +75,13 @@ var marker_icon = {
   'Soil': 'Soil',
   'Stone Pillar': 'Stone_Pillar',
   'Sublime Portico': 'Sublime_Portico',
+  'Swan': 'Swan',
   'Swirling Vortex': 'Swirling_Vortex',
   'Troll': 'Troll',
   'Village': 'Village',
   'Walrus': 'Walrus',
   'Water': 'Water',
+  'Wolverine': 'Wolverine',
   'Wooden Roadsign': 'Wooden_Roadsign'
 }
 
@@ -224,7 +228,8 @@ function add_poi_dialog(X=0, Y=0) {
   $('#add-form-level').val(level);
   $('#add-form-x').val(X);
   $('#add-form-y').val(Y);
-  $('#addModal').modal();
+  $('.modal.in').not('#addModal').modal('hide');
+  $('#addModal').modal('show');
 }
 
 function edit_poi_dialog(i) {
@@ -236,11 +241,12 @@ function edit_poi_dialog(i) {
   $('#edit-form-level').val(poi[i].Level);
   $('#edit-form-x').val(poi[i].X);
   $('#edit-form-y').val(poi[i].Y);
-  $('#editModal').modal();
+  $('.modal.in').not('#editModal').modal('hide');
+  $('#editModal').modal('show');
 }
 
 function add_poi() {
-  $('#addModal').modal();
+  $('#addModal').modal('hide');
   var Type = $('#add-form-type').val();
   var Name = $('#add-form-name').val();
   var Level = $('#add-form-level').val();
@@ -271,7 +277,7 @@ function add_poi() {
 }
 
 function edit_poi() {
-  $('#editModal').modal();
+  $('#editModal').modal('hide');
   var i = $('#edit-form-poi-id').val();
   var row = parseInt(i)+2;
   var Type = $('#edit-form-type').val();
@@ -304,7 +310,7 @@ function edit_poi() {
 }
 
 function remove_poi() {
-  $('#editModal').modal();
+  $('#editModal').modal('hide');
   var i = $('#edit-form-poi-id').val();
   var row = parseInt(i)+2;
   var data = {

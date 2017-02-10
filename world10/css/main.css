@@ -97,3 +97,9 @@ textarea {
 .markercontent {
     min-height: 240px;
 }
+
+#addModal, #editModal{
+    top:35px;
+    left:100%;
+    margin-left: -320px;
+}
