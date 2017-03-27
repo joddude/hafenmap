@@ -182,7 +182,11 @@ function remove_markers(){
 }
 
 function marker_title(i) {
- var info = poi[i].Type + ' ' + poi[i].Name;
+  if (poi[i].Name) {
+    var info = poi[i].Name;
+  } else {
+    var info = poi[i].Type;
+  }
   if (poi[i].Quality != '0') {
     info = info + ' (q' + poi[i].Quality + ')';
   }
