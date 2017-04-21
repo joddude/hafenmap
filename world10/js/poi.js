@@ -116,6 +116,7 @@ function draw_markers() {
       position: projection.fromCoordToLatLng({x: poi[i].X, y: poi[i].Y}),
       icon: get_marker_icon(poi[i].Type),
       title: marker_title(i),
+      //optimized: false,
       map: map
     });
     markers.push(marker);
