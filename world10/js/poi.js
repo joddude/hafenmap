@@ -1,5 +1,5 @@
+var poi_sheet_name = 'hafenmap_poi';
 var icon_size = 24;
-var access_token = false;
 var poi = [];
 var markers = [];
 
@@ -81,6 +81,7 @@ var marker_icon = {
   'Village': 'Village',
   'Walrus': 'Walrus',
   'Water': 'Water',
+  'Well': 'Well',
   'Wolverine': 'Wolverine',
   'Wooden Roadsign': 'Wooden_Roadsign'
 }
@@ -95,13 +96,13 @@ function start_poi() {
 function type_select() {
 	var list = '<option class="type-icon"></option>';
 	for (i in marker_icon) {
-		list = list + '<option class="type-icon" style="background-image:url(markers/' + marker_icon[i] + '.png);">' + i + '</option>'
+      list = list + '<option class="type-icon" style="background-image:url(markers/' + marker_icon[i] + '.png);">' + i + '</option>'
 	}
 	return list;
 }
 
 function load_poi() {
-  $.get(sheet_api_url+'/values/'+ sheet_name+'?key='+api_key, function(data) {
+  $.get(sheet_api_url+'/values/'+ poi_sheet_name+'?key='+api_key, function(data) {
     poi = convertToArrayOfObjects(data['values']);
     draw_markers();
 	});
@@ -265,7 +266,7 @@ function add_poi() {
     ],
   }
   $.ajax({
-    url: sheet_api_url+'/values/'+sheet_name+':append?valueInputOption=RAW&access_token='+access_token,
+    url: sheet_api_url+'/values/'+poi_sheet_name+':append?valueInputOption=RAW&access_token='+access_token,
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
@@ -276,7 +277,7 @@ function add_poi() {
     },
     error: function(data){
       console.log(data);
-      alert('Error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
+      alert('Saving error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
     }
   })
 }
@@ -298,7 +299,7 @@ function edit_poi() {
     ],
   }
   $.ajax({
-    url: sheet_api_url+'/values/'+sheet_name+'!'+row+':'+row+'?valueInputOption=RAW&access_token='+access_token,
+    url: sheet_api_url+'/values/'+poi_sheet_name+'!'+row+':'+row+'?valueInputOption=RAW&access_token='+access_token,
     type: 'PUT',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
@@ -309,7 +310,7 @@ function edit_poi() {
     },
     error: function(data){
       console.log(data);
-      alert('Error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
+      alert('Saving error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
     }
   })
 }
@@ -344,35 +345,8 @@ function remove_poi() {
     },
     error: function(data){
       console.log(data);
-      alert('Error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
+      alert('Saving error '+data.responseJSON.error.code+' - '+data.responseJSON.error.status+'\n'+data.responseJSON.error.message);
     }
   })
 }
 
-function check_auth() {
-  gapi.auth.authorize(
-    {
-      'client_id': oauth_client_id,
-      'scope': oauth_scopes.join(' '),
-      'immediate': true
-    }, auth_result);
-}
-
-function auth_result(authResult) {
-    console.log(authResult);
-  if (authResult.access_token) {
-    access_token = authResult.access_token;
-    console.log(access_token);
-  } else {
-    start_auth();
-  }
-}
-
-function start_auth() {
-  gapi.auth.authorize(
-    {
-      'client_id': oauth_client_id,
-      'scope': oauth_scopes,
-      'immediate': false
-    }, auth_result);
-}

@@ -12,16 +12,22 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!--Change api key to YOUR_API_KEY in next line -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg" type="text/javascript" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg&libraries=drawing" type="text/javascript" defer></script>
     <script src="https://apis.google.com/js/client.js" defer></script>
     <script src="js/jquery.min.js" type="text/javascript" defer></script>
     <script src="js/bootstrap.min.js" type="text/javascript" defer></script>
-    <script src="js/coord.js" type="text/javascript" defer></script>
+    <script src="js/functions.js" type="text/javascript" defer></script>
+    <script src="js/oauth.js" type="text/javascript" defer></script>
     <script src="js/poi.js" type="text/javascript" defer></script>
+    <script src="js/drawing.js" type="text/javascript" defer></script>
     <script src="js/ruler.js" type="text/javascript" defer></script>
     <script src="js/main.js" type="text/javascript" defer></script>
 
     <div id ="panel" class="img-rounded">
+      <button class="btn btn-default btn-sm" onclick="pan();"><span class="glyphicon glyphicon-move"></span> Pan</button>
+      <button class="btn btn-default btn-sm" onclick="add_line();"><span class="glyphicon glyphicon-pencil"></span> Add line</button>
+      <button class="btn btn-default btn-sm" onclick="add_polygon();"><span class="glyphicon glyphicon-pencil"></span> Add polygon</button>
+      <button class="btn btn-default btn-sm" onclick="toggle_drawing();"><span class="glyphicon glyphicon-eye-close"></span> Toggle drawing</button>
       <button class="btn btn-default btn-sm" onclick="addruler();"><span class="glyphicon glyphicon-resize-full"></span> Add ruler</button>
       <button class="btn btn-default btn-sm" onclick="overlay.toggle();"><span class="glyphicon glyphicon-th"></span> Toggle Grid</button>
       <button class="btn btn-default btn-sm" onclick="open_spreadsheet()"><span class="glyphicon glyphicon-list-alt"></span> Spreadsheet</button>
