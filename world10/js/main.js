@@ -3,13 +3,14 @@ var gridActive = true;
 var COORDSPP = 5.12;
 
 //Change api key to YOUR_API_KEY in next line
-var api_key = 'AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg';
+// var api_key = 'AIzaSyBRubiQU_lzu8FjQTy-L5I2z57MwtJRAUg';
+var api_key = 'AIzaSyDIj5zD-d1rijnqdD_0-q34THdIxBvVQI4';
 //Change oauth client id to YOUR_OAUTH_CLIENT_ID in next line
-var oauth_client_id = '899386149897-u1cbun7uijmk5bnh8q81d6t5t1rreaah.apps.googleusercontent.com';
+var oauth_client_id = '436637439377-njuo9kf8hq8tl0gd1lqt0k7magoirp9b.apps.googleusercontent.com';
 
 var oauth_scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 var default_tileset = 'tiles/';
-var default_spreadsheet_id = '1vQxLvqzQ8Z_N2ifbAni7Fu5NLEuT5tNR05Z_8bPQqHw';
+var default_spreadsheet_id = '1mYGgbF1zqSx3UtJN69XR_oZ9E6lnEfwMrkIGmFwHKRY';
 var tileset = gup('tileset',default_tileset);
 var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
 var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id;
