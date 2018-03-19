@@ -74,7 +74,7 @@ var PublicMap = new google.maps.ImageMapType({
   getTileUrl: function(coord, zoom) {
       var x = coord.x;
       var y = coord.y;
-      return 'http://www.odditown.com:8080/haven/tiles/live/'+zoom+'/'+x+'_'+y+'.png';
+      return 'http://www.odditown.com/haven/map/tiles/'+zoom+'/'+x+'_'+y+'.png';
   },
   tileSize: new google.maps.Size(tsz[0], tsz[1]),
   minZoom: 3,
