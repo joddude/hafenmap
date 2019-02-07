@@ -21,9 +21,8 @@ Using tileset from Odditown Haven World Map.
 ## Links
 * [Haven & Hearth game portal](http://www.havenandhearth.com/portal/)
 * [Hafenmap forum thread](http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=51908)
-* [Odditown Haven World 9 Map](http://odditown.com/haven/map/)
+* [Odditown Haven Map](http://odditown.com/haven/map/)
 * [Odditown Haven World Map forum thread](http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=46918)
-* [Apxeolog World 8 map](http://map.apxeolog.com/)
 * [TP Map Tool](http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=41026)
 * [Hafen map tool](http://www.havenandhearth.com/forum/viewtopic.php?f=49&t=40872)
 
