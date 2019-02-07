@@ -8,7 +8,7 @@ var oauth_client_id = '899386149897-u1cbun7uijmk5bnh8q81d6t5t1rreaah.apps.google
 
 var oauth_scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 var default_tileset = 'tiles/';
-var default_spreadsheet_id = '1vQxLvqzQ8Z_N2ifbAni7Fu5NLEuT5tNR05Z_8bPQqHw';
+var default_spreadsheet_id = '1rrFKxDUFv7Pj1GXCEsMEhVHlyGJ0dXKL0zgRixhBIQ8';
 var tileset = gup('tileset', default_tileset);
 var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
 var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id;
@@ -30,7 +30,7 @@ var PublicMap = new google.maps.ImageMapType({
       coord = fixCoord(coord, zoom);
       var x = coord.x;
       var y = coord.y;
-      return 'http://www.odditown.com/haven/map/world10/tiles/'+zoom+'/'+x+'_'+y+'.png';
+      return 'http://www.odditown.com/haven/map/tiles/'+zoom+'/'+x+'_'+y+'.png';
   },
   tileSize: new google.maps.Size(tsz[0], tsz[1]),
   minZoom: 3,
