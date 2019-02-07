@@ -8,6 +8,7 @@ Using tileset from Odditown Haven World Map.
 
 * [World 9 map](https://joddude.github.io/hafenmap/world9/)
 * [World 10 map](https://joddude.github.io/hafenmap/world10/)
+* [World 11 map](https://joddude.github.io/hafenmap/world11/)
 
 ## Installation
 1. Copy content of hafenmap folder to your web-server folder.
