@@ -12,7 +12,7 @@ var default_spreadsheet_id = '1rrFKxDUFv7Pj1GXCEsMEhVHlyGJ0dXKL0zgRixhBIQ8';
 var tileset = gup('tileset', default_tileset);
 var spreadsheet_id = gup('spreadsheet', default_spreadsheet_id);
 var sheet_api_url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id;
-var site_url = location.protocol + '/' + location.host + location.pathname;
+var site_url = location.protocol + '//' + location.host + location.pathname;
 
 var overlay = new CoordMapType(new google.maps.Size(tsz[0], tsz[1]));
 
