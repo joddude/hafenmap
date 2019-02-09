@@ -259,7 +259,8 @@ function add_poi() {
   var X = $('#add-form-x').val();
   var Y = $('#add-form-y').val();
   var Quality = $('#add-form-quality').val();
-  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  if (level == 'land') var MapLink = '=HYPERLINK("'+site_url+'#&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  else var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
   var data = {
     'values': [
         [Type, Name, Level, X, Y, Quality, MapLink],
@@ -293,7 +294,8 @@ function edit_poi() {
   var X = $('#edit-form-x').val();
   var Y = $('#edit-form-y').val();
   var Quality = $('#edit-form-quality').val();
-  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  if (level == 'land') var MapLink = '=HYPERLINK("'+site_url+'#&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
+  else var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
   var data = {
     'values': [
         [Type, Name, Level, X, Y, Quality, MapLink],
