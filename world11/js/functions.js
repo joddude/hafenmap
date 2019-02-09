@@ -12,7 +12,7 @@ Coord.prototype.toString = function() {
 
 function myProjection() {
   var MAP_RANGE = 51200;
-  this.worldOrigin_ = this.fromCoordToPoint(new Coord(0, 0));
+  this.worldOrigin_ = this.fromCoordToPoint(new Coord(gup('x','0'),gup('y','0')));
   this.pixelsPerLonDegree = MAP_RANGE / 360;
   this.pixelsPerLatDegree = MAP_RANGE / 180;
 };
