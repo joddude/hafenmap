@@ -259,14 +259,15 @@ function add_poi() {
   var X = $('#add-form-x').val();
   var Y = $('#add-form-y').val();
   var Quality = $('#add-form-quality').val();
-  var MapLink = site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset;
+  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
   var data = {
     'values': [
         [Type, Name, Level, X, Y, Quality, MapLink],
     ],
   }
   $.ajax({
-    url: sheet_api_url+'/values/'+poi_sheet_name+':append?valueInputOption=RAW&access_token='+access_token,
+    //url: sheet_api_url+'/values/'+poi_sheet_name+':append?valueInputOption=RAW&access_token='+access_token,
+    url: sheet_api_url+'/values/'+poi_sheet_name+':append?valueInputOption=USER_ENTERED&access_token='+access_token,
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
@@ -292,14 +293,15 @@ function edit_poi() {
   var X = $('#edit-form-x').val();
   var Y = $('#edit-form-y').val();
   var Quality = $('#edit-form-quality').val();
-  var MapLink = site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset;
+  var MapLink = '=HYPERLINK("'+site_url+'#&level='+Level+'&x='+X+'&y='+Y+'&zoom=9&spreadsheet='+spreadsheet_id+'&tileset='+tileset+'")';
   var data = {
     'values': [
         [Type, Name, Level, X, Y, Quality, MapLink],
     ],
   }
   $.ajax({
-    url: sheet_api_url+'/values/'+poi_sheet_name+'!'+row+':'+row+'?valueInputOption=RAW&access_token='+access_token,
+    //url: sheet_api_url+'/values/'+poi_sheet_name+'!'+row+':'+row+'?valueInputOption=RAW&access_token='+access_token,
+    url: sheet_api_url+'/values/'+poi_sheet_name+'!'+row+':'+row+'?valueInputOption=USER_ENTERED&access_token='+access_token,
     type: 'PUT',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
