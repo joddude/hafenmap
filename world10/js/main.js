@@ -30,7 +30,7 @@ var PublicMap = new google.maps.ImageMapType({
       coord = fixCoord(coord, zoom);
       var x = coord.x;
       var y = coord.y;
-      return 'http://www.odditown.com/haven/map/world10/tiles/'+zoom+'/'+x+'_'+y+'.png';
+      return 'https://www.odditown.com/haven/map/world10/tiles/'+zoom+'/'+x+'_'+y+'.png';
   },
   tileSize: new google.maps.Size(tsz[0], tsz[1]),
   minZoom: 3,
